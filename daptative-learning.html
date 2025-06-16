@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adaptive Learning System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .fade-in { animation: fadeIn 0.5s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .scale-in { animation: scaleIn 0.3s ease-out; }
+        @keyframes scaleIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .progress-bar {
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            background-color: #e5e7eb;
+        }
+        .progress-fill {
+            height: 100%;
+            transition: width 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="min-h-screen p-4 md:p-8">
+        <div class="max-w-4xl mx-auto">
+            <!-- Header -->
+            <header class="text-center mb-10">
+                <h1 class="text-3xl md:text-4xl font-bold text-indigo-700 mb-2">Adaptive Learning System</h1>
+                <p class="text-gray-600">Personalized learning paths based on your performance</p>
+                <div class="mt-4">
+                    <div class="inline-flex items-center bg-indigo-100 text-indigo-700 px-4 py-2 rounded-full">
+                        <i class="fas fa-user-graduate mr-2"></i>
+                        <span>Learner Dashboard</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Container -->
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+                <!-- Progress Tracking -->
+                <div class="bg-gradient-to-r from-indigo-500 to-purple-600 text-white p-6">
+                    <h2 class="text-xl font-semibold mb-4">Your Learning Progress</h2>
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="text-center p-3 bg-white bg-opacity-20 rounded-lg">
+                            <p class="text-sm opacity-80">Activities</p>
+                            <p class="text-2xl font-bold">0</p>
+                        </div>
+                        <div class="text-center p-3 bg-white bg-opacity-20 rounded-lg">
+                            <p class="text-sm opacity-80">Quizzes</p>
+                            <p class="text-2xl font-bold">0</p>
+                        </div>
+                        <div class="text-center p-3 bg-white bg-opacity-20 rounded-lg">
+                            <p class="text-sm opacity-80">Mastery</p>
+                            <p class="text-2xl font-bold">0%</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- File Upload Section -->
+                <div class="p-6 fade-in" id="uploadSection">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4">Upload Learning Material</h2>
+                    <p class="text-gray-600 mb-6">Upload content to generate personalized learning activities</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                        <div class="file-upload-btn border-2 border-dashed border-blue-300 rounded-xl p-6 text-center cursor-pointer hover:bg-blue-50 transition" data-file-type="text">
+                            <div class="text-blue-500 text-4xl mb-3">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <h3 class="font-medium text-gray-800 mb-2">Text Document</h3>
+                            <p class="text-sm text-gray-500">Articles, stories, lessons</p>
+                        </div>
+                        
+                        <div class="file-upload-btn border-2 border-dashed border-green-300 rounded-xl p-6 text-center cursor-pointer hover:bg-green-50 transition" data-file-type="audio">
+                            <div class="text-green-500 text-4xl mb-3">
+                                <i class="fas fa-file-audio"></i>
+                            </div>
+                            <h3 class="font-medium text-gray-800 mb-2">Audio File</h3>
+                            <p class="text-sm text-gray-500">Podcasts, speeches, recordings</p>
+                        </div>
+                        
+                        <div class="file-upload-btn border-2 border-dashed border-purple-300 rounded-xl p-6 text-center cursor-pointer hover:bg-purple-50 transition" data-file-type="video">
+                            <div class="text-purple-500 text-4xl mb-3">
+                                <i class="fas fa-file-video"></i>
+                            </div>
+                            <h3 class="font-medium text-gray-800 mb-2">Video File</h3>
+                            <p class="text-sm text-gray-500">Lessons, demonstrations, talks</p>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center text-gray-500">
+                        <p>Supported formats: PDF, DOCX, MP3, MP4</p>
+                    </div>
+                </div>
+
+                <!-- Content Display (Hidden initially) -->
+                <div class="hidden p-6 fade-in" id="contentSection">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-xl font-semibold text-gray-800">Learning Content</h2>
+                        <button id="changeContentBtn" class="text-indigo-600 hover:text-indigo-800">
+                            <i class="fas fa-exchange-alt mr-2"></i>Change Content
+                        </button>
+                    </div>
+                    
+                    <div class="bg-gray-50 rounded-xl p-4 mb-6">
+                        <div class="flex items-center text-sm text-gray-500 mb-2">
+                            <span class="bg-indigo-100 text-indigo-800 px-2 py-1 rounded mr-2">Processed</span>
+                            <span id="fileTypeIndicator"></span>
+                        </div>
+                        <div class="prose max-w-none bg-white p-4 rounded-lg border" id="contentDisplay">
+                            <!-- Content will appear here -->
+                        </div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <button id="generateQuizBtn" class="bg-indigo-600 hover:bg-indigo-700 text-white py-3 px-8 rounded-full text-lg font-medium transition transform hover:scale-105">
+                            Generate Quiz <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Quiz Section (Hidden initially) -->
+                <div class="hidden p-6 fade-in" id="quizSection">
+                    <div class="flex justify-between items-center mb-6">
+                        <div>
+                            <h2 class="text-xl font-semibold text-gray-800">Comprehension Quiz</h2>
+                            <p class="text-gray-600">Test your understanding of the material</p>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-sm font-medium text-gray-700">Time: <span id="quizTimer">05:00</span></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <div class="progress-bar">
+                            <div class="progress-fill bg-indigo-600 w-0" id="quizProgress"></div>
+                        </div>
+                    </div>
+                    
+                    <div id="quizContainer">
+                        <!-- Quiz questions will be inserted here -->
+                    </div>
+                    
+                    <div class="text-center mt-8">
+                        <button id="submitQuizBtn" class="bg-indigo-600 hover:bg-indigo-700 text-white py-3 px-10 rounded-lg text-lg font-medium transition transform hover:scale-105">
+                            Submit Quiz <i class="fas fa-paper-plane ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Results Section (Hidden initially) -->
+                <div class="hidden p-6 fade-in" id="resultsSection">
+                    <div class="text-center mb-8">
+                        <h2 class="text-2xl font-semibold text-gray-800 mb-2">Quiz Results</h2>
+                        <div class="text-5xl font-bold mb-4" id="scoreDisplay">0%</div>
+                        <p class="text-lg max-w-xl mx-auto" id="feedbackText"></p>
+                    </div>
+                    
+                    <div class="bg-gray-50 rounded-xl p-6 mb-8">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Your Learning Path</h3>
+                        <div class="space-y-4" id="learningPath">
+                            <!-- Learning path items will be inserted here -->
+                        </div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <button id="startLearningBtn" class="bg-indigo-600 hover:bg-indigo-700 text-white py-3 px-10 rounded-lg text-lg font-medium transition transform hover:scale-105">
+                            Start Learning <i class="fas fa-road ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Activities Section (Hidden initially) -->
+                <div class="hidden p-6 fade-in" id="activitiesSection">
+                    <div class="flex justify-between items-center mb-6">
+                        <div>
+                            <h2 class="text-xl font-semibold text-gray-800" id="activityLevel"></h2>
+                            <p class="text-gray-600" id="activityDescription"></p>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-sm font-medium text-gray-700">
+                                Activity <span id="activityCounter">1</span> of <span id="activityTotal">3</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 rounded-xl p-6 mb-6" id="currentActivity">
+                        <!-- Current activity will be inserted here -->
+                    </div>
+                    
+                    <div class="flex justify-between">
+                        <button id="prevActivityBtn" class="bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-6 rounded-lg">
+                            <i class="fas fa-arrow-left mr-2"></i> Back
+                        </button>
+                        <button id="nextActivityBtn" class="bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-6 rounded-lg">
+                            Next <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="mt-12 text-center text-gray-500 text-sm">
+                <p>Adaptive Learning System © 2023 | All rights reserved</p>
+                <div class="mt-2">
+                    <button class="text-indigo-600 hover:text-indigo-800 mx-2">Privacy Policy</button>
+                    <button class="text-indigo-600 hover:text-indigo-800 mx-2">Terms of Service</button>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        // Current state
+        let currentState = {
+            fileType: '',
+            content: '',
+            quiz: [],
+            answers: {},
+            score: 0,
+            learningPath: [],
+            currentPathIndex: 0,
+            currentActivityIndex: 0
+        };
+
+        // Sample content for different file types
+        const sampleContent = {
+            text: "The Solar System consists of the Sun and everything bound to it by gravity. This includes eight planets, their moons, dwarf planets, asteroids, comets, and other small bodies. The Sun, a star at the center, contains more than 99% of the Solar System's mass. The four inner planets are terrestrial, while the four outer planets are gas giants. The asteroid belt lies between Mars and Jupiter. Beyond Neptune's orbit lies the Kuiper belt and scattered disc.",
+            audio: "Transcript: The solar system is our cosmic neighborhood. At its heart is the Sun, a star that provides light and heat to all the planets. Closest to the Sun is Mercury, a small rocky planet. Then comes Venus, covered in thick clouds. Earth comes next, our home planet with liquid water and life. Mars, the red planet, follows Earth. Beyond Mars is the asteroid belt, a region filled with rocky debris. Then come the gas giants: Jupiter, the largest planet, followed by Saturn with its beautiful rings. Further out are Uranus and Neptune, ice giants with cold atmospheres. The solar system extends much further to include dwarf planets like Pluto and countless other objects in the Kuiper belt.",
+            video: "Transcript: [Visual: Animation of the solar system] Narrator: Our solar system formed 4.6 billion years ago from a giant cloud of gas and dust. The Sun formed at the center, growing large enough to ignite nuclear fusion. The remaining material formed a protoplanetary disk where planets began to form. Rocky planets formed closer to the Sun where temperatures were higher. Gas giants formed further out where lighter materials could condense. The solar system continues to evolve, with planets constantly moving in their orbits around the Sun. Recent discoveries include thousands of exoplanets, but our solar system remains unique in its ability to support life on Earth."
+        };
+
+        // Sample quiz questions
+        const quizQuestions = [
+            {
+                type: "multiple-choice",
+                question: "What is at the center of our solar system?",
+                options: ["Earth", "Moon", "Sun", "Jupiter"],
+                correctAnswer: 2
+            },
+            {
+                type: "true-false",
+                question: "Earth is the only planet with liquid water in the solar system.",
+                correctAnswer: false
+            },
+            {
+                type: "multiple-choice",
+                question: "Which planet is known for its prominent ring system?",
+                options: ["Jupiter", "Mars", "Saturn", "Neptune"],
+                correctAnswer: 2
+            },
+            {
+                type: "short-answer",
+                question: "What is the name of the region between Mars and Jupiter where many asteroids are found?",
+                correctAnswer: "asteroid belt"
+            },
+            {
+                type: "true-false",
+                question: "Pluto is still considered a full planet in our solar system.",
+                correctAnswer: false
+            }
+        ];
+
+        // Sample learning paths
+        const learningPaths = {
+            beginner: [
+                { 
+                    name: "Deep Dive", 
+                    description: "Detailed explanations of core concepts",
+                    activities: [
+                        {
+                            type: "video",
+                            title: "Solar System Explained",
+                            content: "Watch this 5-minute overview of our solar system",
+                            duration: "5 min"
+                        },
+                        {
+                            type: "matching",
+                            title: "Planet Match",
+                            content: "Match planets to their characteristics",
+                            pairs: [
+                                ["Earth", "Only planet with life"],
+                                ["Mars", "The Red Planet"],
+                                ["Jupiter", "Largest planet"]
+                            ]
+                        }
+                    ]
+                },
+                { 
+                    name: "Beginner Practice", 
+                    description: "Reinforce fundamental knowledge",
+                    activities: [
+                        {
+                            type: "fill-blank",
+                            title: "Complete the Sentences",
+                            content: "The ______ is the center of our solar system. The four inner planets are called ______ planets.",
+                            answers: ["Sun", "terrestrial"]
+                        },
+                        {
+                            type: "flashcards",
+                            title: "Solar System Terms",
+                            content: "Study key vocabulary about our solar system",
+                            cards: [
+                                ["Asteroid", "Rocky object orbiting the Sun"],
+                                ["Comet", "Icy body that releases gas"],
+                                ["Orbit", "Path of an object around another object"]
+                            ]
+                        }
+                    ]
+                }
+            ],
+            intermediate: [
+                { 
+                    name: "Core Practice", 
+                    description: "Apply your knowledge through activities",
+                    activities: [
+                        {
+                            type: "diagram",
+                            title: "Label the Solar System",
+                            content: "Identify the positions of planets in our solar system",
+                            labels: ["Sun", "Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune"]
+                        },
+                        {
+                            type: "sorting",
+                            title: "Planet Size Order",
+                            content: "Arrange planets from smallest to largest",
+                            items: ["Mercury", "Mars", "Venus", "Earth", "Neptune", "Uranus", "Saturn", "Jupiter"]
+                        }
+                    ]
+                }
+            ],
+            advanced: [
+                { 
+                    name: "Advanced Challenges", 
+                    description: "Apply knowledge in complex scenarios",
+                    activities: [
+                        {
+                            type: "essay",
+                            title: "Comparative Analysis",
+                            content: "Compare Earth with another planet and discuss why Earth is suitable for life",
+                            length: "300 words"
+                        },
+                        {
+                            type: "simulation",
+                            title: "Orbit Simulation",
+                            content: "Adjust variables to create a stable planetary system",
+                            parameters: ["Mass", "Distance", "Velocity"]
+                        }
+                    ]
+                }
+            ]
+        };
+
+        // DOM elements
+        const sections = {
+            upload: document.getElementById('uploadSection'),
+            content: document.getElementById('contentSection'),
+            quiz: document.getElementById('quizSection'),
+            results: document.getElementById('resultsSection'),
+            activities: document.getElementById('activitiesSection')
+        };
+
+        // Show specific section and hide others
+        function showSection(sectionId) {
+            Object.values(sections).forEach(section => {
+                section.classList.add('hidden');
+            });
+            document.getElementById(sectionId).classList.remove('hidden');
+        }
+
+        // Upload file handler
+        function uploadFile(fileType) {
+            currentState.fileType = fileType;
+            currentState.content = sampleContent[fileType];
+            
+            // Update UI
+            document.getElementById('fileTypeIndicator').textContent = 
+                fileType.charAt(0).toUpperCase() + fileType.slice(1) + ' File';
+            
+            document.getElementById('contentDisplay').textContent = currentState.content;
+            
+            showSection('contentSection');
+        }
+
+        // Generate quiz
+        function generateQuiz() {
+            currentState.quiz = [...quizQuestions];
+            showSection('quizSection');
+            startQuizTimer();
+            renderQuiz();
+        }
+
+        // Start quiz timer
+        function startQuizTimer() {
+            let time = 300; // 5 minutes in seconds
+            const timerElement = document.getElementById('quizTimer');
+            
+            const timer = setInterval(() => {
+                time--;
+                const minutes = Math.floor(time / 60);
+                const seconds = time % 60;
+                timerElement.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+                
+                // Update progress bar
+                const progress = ((300 - time) / 300) * 100;
+                document.getElementById('quizProgress').style.width = `${progress}%`;
+                
+                if (time <= 0) {
+                    clearInterval(timer);
+                    submitQuiz();
+                }
+            }, 1000);
+        }
+
+        // Render quiz questions
+        function renderQuiz() {
+            const quizContainer = document.getElementById('quizContainer');
+            quizContainer.innerHTML = '';
+            
+            currentState.quiz.forEach((question, index) => {
+                const questionElement = document.createElement('div');
+                questionElement.className = 'bg-white border rounded-lg p-5 mb-6 scale-in';
+                questionElement.innerHTML = `
+                    <div class="flex items-start mb-4">
+                        <div class="bg-indigo-100 text-indigo-800 rounded-full h-8 w-8 flex items-center justify-center font-bold mr-3">${index + 1}</div>
+                        <div>
+                            <h3 class="font-semibold text-lg text-gray-800">${question.question}</h3>
+                        </div>
+                    </div>
+                `;
+                
+                if (question.type === 'multiple-choice') {
+                    let optionsHTML = '';
+                    question.options.forEach((option, optIndex) => {
+                        optionsHTML += `
+                            <label class="flex items-center bg-gray-50 hover:bg-gray-100 rounded-lg p-3 mb-2 cursor-pointer">
+                                <input type="radio" name="q${index}" value="${optIndex}" class="h-5 w-5 text-indigo-600 mr-3">
+                                <span>${option}</span>
+                            </label>
+                        `;
+                    });
+                    questionElement.innerHTML += optionsHTML;
+                }
+                else if (question.type === 'true-false') {
+                    questionElement.innerHTML += `
+                        <div class="grid grid-cols-2 gap-3">
+                            <label class="flex items-center bg-gray-50 hover:bg-gray-100 rounded-lg p-3 cursor-pointer">
+                                <input type="radio" name="q${index}" value="true" class="h-5 w-5 text-indigo-600 mr-3">
+                                <span>True</span>
+                            </label>
+                            <label class="flex items-center bg-gray-50 hover:bg-gray-100 rounded-lg p-3 cursor-pointer">
+                                <input type="radio" name="q${index}" value="false" class="h-5 w-5 text-indigo-600 mr-3">
+                                <span>False</span>
+                            </label>
+                        </div>
+                    `;
+                }
+                else if (question.type === 'short-answer') {
+                    questionElement.innerHTML += `
+                        <textarea class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-300 focus:border-transparent" placeholder="Type your answer here..." rows="3"></textarea>
+                    `;
+                }
+                
+                quizContainer.appendChild(questionElement);
+            });
+        }
+
+        // Submit quiz
+        function submitQuiz() {
+            // Calculate score (simplified for demo)
+            currentState.score = Math.floor(Math.random() * 41) + 60; // Random score between 60-100%
+            
+            // Determine learning path
+            if (currentState.score < 50) {
+                currentState.learningPath = learningPaths.beginner;
+            } else if (currentState.score < 80) {
+                currentState.learningPath = learningPaths.intermediate;
+            } else {
+                currentState.learningPath = learningPaths.advanced;
+            }
+            
+            // Show results
+            showResults();
+        }
+
+        // Show results
+        function showResults() {
+            const scoreDisplay = document.getElementById('scoreDisplay');
+            const feedbackText = document.getElementById('feedbackText');
+            const learningPathContainer = document.getElementById('learningPath');
+            
+            // Update score display
+            scoreDisplay.textContent = `${currentState.score}%`;
+            scoreDisplay.className = 'text-5xl font-bold mb-4'; // reset classes
+            if (currentState.score < 50) {
+                scoreDisplay.classList.add('text-red-500');
+                feedbackText.textContent = "Let's strengthen your foundational knowledge with targeted practice.";
+            } else if (currentState.score < 80) {
+                scoreDisplay.classList.add('text-yellow-500');
+                feedbackText.textContent = "Great job! Let's build on your understanding with more challenging activities.";
+            } else {
+                scoreDisplay.classList.add('text-green-500');
+                feedbackText.textContent = "Excellent work! Ready for advanced challenges and critical thinking exercises.";
+            }
+            
+            // Render learning path
+            learningPathContainer.innerHTML = '';
+            currentState.learningPath.forEach((path, index) => {
+                const pathElement = document.createElement('div');
+                pathElement.className = 'bg-white rounded-lg border p-5 mb-4 scale-in';
+                pathElement.innerHTML = `
+                    <div class="flex items-start">
+                        <div class="bg-indigo-100 text-indigo-800 rounded-full h-8 w-8 flex items-center justify-center font-bold mr-4">${index + 1}</div>
+                        <div>
+                            <h4 class="font-semibold text-lg text-gray-800">${path.name}</h4>
+                            <p class="text-gray-600 mt-1">${path.description}</p>
+                            <div class="mt-3 flex flex-wrap gap-2">
+                                ${path.activities.map(activity => `
+                                    <span class="bg-indigo-50 text-indigo-700 px-3 py-1 rounded-full text-sm">
+                                        ${activity.title}
+                                    </span>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                learningPathContainer.appendChild(pathElement);
+            });
+            
+            showSection('resultsSection');
+        }
+
+        // Start learning path
+        function startLearningPath() {
+            currentState.currentPathIndex = 0;
+            currentState.currentActivityIndex = 0;
+            renderActivity();
+        }
+
+        // Render current activity
+        function renderActivity() {
+            const path = currentState.learningPath[currentState.currentPathIndex];
+            const activity = path.activities[currentState.currentActivityIndex];
+            
+            // Update activity info
+            document.getElementById('activityLevel').textContent = path.name;
+            document.getElementById('activityDescription').textContent = path.description;
+            document.getElementById('activityCounter').textContent = currentState.currentActivityIndex + 1;
+            document.getElementById('activityTotal').textContent = path.activities.length;
+            
+            // Render activity content
+            const activityContainer = document.getElementById('currentActivity');
+            activityContainer.innerHTML = `
+                <div class="bg-white rounded-lg border p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">${activity.title}</h3>
+                    <p class="text-gray-600 mb-5">${activity.content}</p>
+                    
+                    ${activity.type === 'matching' ? `
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <h4 class="font-medium text-gray-700 mb-2">Terms</h4>
+                                <ul class="space-y-2">
+                                    ${activity.pairs.map(pair => `
+                                        <li class="bg-gray-100 p-3 rounded-lg cursor-move">${pair[0]}</li>
+                                    `).join('')}
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-gray-700 mb-2">Definitions</h4>
+                                <ul class="space-y-2">
+                                    ${activity.pairs.map(() => `
+                                        <li class="bg-gray-100 border-2 border-dashed border-gray-300 p-3 rounded-lg h-[46px]"></li>
+                                    `).join('')}
+                                </ul>
+                            </div>
+                        </div>
+                    ` : ''}
+                    
+                    ${activity.type === 'fill-blank' ? `
+                        <div class="space-y-3">
+                            ${activity.content.split('______').map((part, index, array) => {
+                                if (index === array.length - 1) return part;
+                                return `${part} <input type="text" class="border-b-2 border-indigo-300 px-2 py-1 w-24 inline-block text-center">`;
+                            }).join('')}
+                        </div>
+                    ` : ''}
+                    
+                    ${activity.type === 'flashcards' ? `
+                        <div class="text-center">
+                            <div class="bg-white border-2 border-indigo-200 rounded-xl w-full max-w-md mx-auto h-48 flex items-center justify-center mb-4">
+                                <p class="text-gray-600">Flashcard content will appear here</p>
+                            </div>
+                            <button class="bg-indigo-600 text-white py-2 px-6 rounded-lg">
+                                Flip Card <i class="fas fa-sync-alt ml-2"></i>
+                            </button>
+                        </div>
+                    ` : ''}
+                    
+                    ${activity.type === 'sorting' ? `
+                        <div class="bg-gray-100 rounded-lg p-4">
+                            <h4 class="font-medium text-gray-700 mb-3">Items to sort:</h4>
+                            <div class="flex flex-wrap gap-2">
+                                ${activity.items.map(item => `
+                                    <div class="bg-white border rounded-lg px-4 py-2 cursor-move">${item}</div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    ` : ''}
+                    
+                    ${activity.type === 'essay' ? `
+                        <textarea class="w-full h-40 p-3 border rounded-lg" placeholder="Type your response here..."></textarea>
+                        <div class="text-sm text-gray-500 mt-1">Minimum length: ${activity.length}</div>
+                    ` : ''}
+                </div>
+            `;
+            
+            showSection('activitiesSection');
+        }
+
+        // Navigate to next activity
+        function nextActivity() {
+            const path = currentState.learningPath[currentState.currentPathIndex];
+            
+            if (currentState.currentActivityIndex < path.activities.length - 1) {
+                currentState.currentActivityIndex++;
+                renderActivity();
+            } else {
+                alert('You have completed this learning path section!');
+            }
+        }
+
+        // Navigate to previous activity
+        function previousActivity() {
+            if (currentState.currentActivityIndex > 0) {
+                currentState.currentActivityIndex--;
+                renderActivity();
+            }
+        }
+
+        // Initialize event listeners
+        function initEventListeners() {
+            // File upload buttons
+            document.querySelectorAll('.file-upload-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const fileType = this.getAttribute('data-file-type');
+                    uploadFile(fileType);
+                });
+            });
+
+            // Change content button
+            document.getElementById('changeContentBtn').addEventListener('click', function() {
+                showSection('uploadSection');
+            });
+
+            // Generate quiz button
+            document.getElementById('generateQuizBtn').addEventListener('click', generateQuiz);
+
+            // Submit quiz button
+            document.getElementById('submitQuizBtn').addEventListener('click', submitQuiz);
+
+            // Start learning path button
+            document.getElementById('startLearningBtn').addEventListener('click', startLearningPath);
+
+            // Next activity button
+            document.getElementById('nextActivityBtn').addEventListener('click', nextActivity);
+
+            // Previous activity button
+            document.getElementById('prevActivityBtn').addEventListener('click', previousActivity);
+        }
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            showSection('uploadSection');
+            initEventListeners();
+        });
+    </script>
+</body>
+</html>

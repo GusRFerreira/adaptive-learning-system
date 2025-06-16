@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentic English Learning System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'english-blue': '#2563eb',
+                        'english-light': '#3b82f6',
+                        'english-dark': '#1d4ed8'
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'ui-sans-serif', 'system-ui']
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap');
+        
+        :root {
+            --primary: #2563eb;
+            --secondary: #f59e0b;
+            --accent: #8b5cf6;
+            --light: #f0f4ff;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f0f4ff 0%, #e6f0ff 100%);
+            color: #1e293b;
+        }
+        
+        .prose {
+            font-family: 'Merriweather', serif;
+            line-height: 1.8;
+            color: #334155;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+        
+        .activity-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--english-blue) 0%, var(--english-dark) 100%);
+            color: white;
+            border-radius: 9999px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2), 0 2px 4px -2px rgba(37, 99, 235, 0.2);
+        }
+        
+        .header-gradient {
+            background: linear-gradient(135deg, #1e40af 0%, #312e81 100%);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        header h1 {
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            letter-spacing: -0.5px;
+            font-weight: 800;
+        }
+        
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1e293b;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid #e2e8f0;
+            margin-bottom: 1.5rem;
+        }
+        
+        .resource-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 0.75rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .level-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <div class="min-h-screen flex flex-col">
+        <!-- Header -->
+        <header class="header-gradient text-white py-8 px-4">
+            <div class="max-w-6xl mx-auto">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="text-center md:text-left mb-4 md:mb-0">
+                        <h1 class="text-2xl md:text-3xl font-bold flex items-center justify-center md:justify-start">
+                            <i class="fas fa-book-open mr-3 text-yellow-300"></i>
+                            Authentic English Learning System
+                        </h1>
+                        <p class="text-blue-100 mt-3 text-lg">Teaching English with Real-world Materials</p>
+                    </div>
+                    <div class="inline-flex items-center bg-white/20 backdrop-blur-sm px-5 py-3 rounded-full text-white">
+                        <i class="fas fa-user-graduate mr-3 text-yellow-300"></i>
+                        <span class="font-medium">Teacher Dashboard</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-grow py-8 px-4">
+            <div class="max-w-6xl mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                    <!-- Progress Panel -->
+                    <div class="lg:col-span-1">
+                        <div class="card p-6">
+                            <h2 class="section-title flex items-center">
+                                <i class="fas fa-chart-line mr-2 text-english-blue"></i>
+                                Class Overview
+                            </h2>
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+                                    <div>
+                                        <div class="text-sm text-slate-600">Current Level</div>
+                                        <div class="font-bold text-english-blue">Mixed Levels</div>
+                                    </div>
+                                    <i class="fas fa-users text-english-blue text-xl"></i>
+                                </div>
+                                <div class="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                                    <div>
+                                        <div class="text-sm text-slate-600">Materials Used</div>
+                                        <div class="font-bold text-green-600">12 Authentic Items</div>
+                                    </div>
+                                    <i class="fas fa-file-alt text-green-600 text-xl"></i>
+                                </div>
+                                <div class="flex items-center justify-between p-3 bg-purple-50 rounded-lg">
+                                    <div>
+                                        <div class="text-sm text-slate-600">Activities Created</div>
+                                        <div class="font-bold text-purple-600">48 Tasks</div>
+                                    </div>
+                                    <i class="fas fa-tasks text-purple-600 text-xl"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card p-6 mt-6">
+                            <h3 class="section-title flex items-center">
+                                <i class="fas fa-lightbulb mr-2 text-english-blue"></i>
+                                Teaching Tips
+                            </h3>
+                            <ul class="space-y-3 text-sm text-slate-600">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <span>Use short video clips (1-3 minutes) for beginners</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <span>Pair authentic news articles with vocabulary lists</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <span>Use song lyrics for grammar practice</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <span>Movie scenes work well for advanced learners</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Content Area -->
+                    <div class="lg:col-span-3">
+                        <!-- Upload Section -->
+                        <div class="card p-6 fade-in" id="uploadSection">
+                            <h2 class="section-title flex items-center">
+                                <i class="fas fa-cloud-upload-alt mr-2 text-english-blue"></i>
+                                Upload Authentic Materials
+                            </h2>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                                <div class="file-upload-btn flex flex-col items-center justify-center p-6 cursor-pointer" data-file-type="text">
+                                    <div class="text-blue-500 text-4xl mb-3">
+                                        <i class="fas fa-file-alt"></i>
+                                    </div>
+                                    <h3 class="font-bold text-slate-800 mb-1">Text Materials</h3>
+                                    <p class="text-sm text-slate-500">Articles, stories, social media</p>
+                                    <div class="mt-3 bg-blue-50 text-blue-700 rounded-full px-3 py-1 text-xs font-medium">
+                                        News, Blogs, Tweets
+                                    </div>
+                                </div>
+                                
+                                <div class="file-upload-btn flex flex-col items-center justify-center p-6 cursor-pointer" data-file-type="audio">
+                                    <div class="text-green-500 text-4xl mb-3">
+                                        <i class="fas fa-file-audio"></i>
+                                    </div>
+                                    <h3 class="font-bold text-slate-800 mb-1">Audio Materials</h3>
+                                    <p class="text-sm text-slate-500">Podcasts, songs, interviews</p>
+                                    <div class="mt-3 bg-green-50 text-green-700 rounded-full px-3 py-1 text-xs font-medium">
+                                        Songs, Dialogues
+                                    </div>
+                                </div>
+                                
+                                <div class="file-upload-btn flex flex-col items-center justify-center p-6 cursor-pointer" data-file-type="video">
+                                    <div class="text-purple-500 text-4xl mb-3">
+                                        <i class="fas fa-file-video"></i>
+                                    </div>
+                                    <h3 class="font-bold text-slate-800 mb-1">Video Materials</h3>
+                                    <p class="text-sm text-slate-500">Clips, commercials, movies</p>
+                                    <div class="mt-3 bg-purple-50 text-purple-700 rounded-full px-3 py-1 text-xs font-medium">
+                                        Movie Scenes, Ads
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-lg">
+                                <div class="flex">
+                                    <div class="flex-shrink-0">
+                                        <i class="fas fa-lightbulb text-yellow-500 text-xl"></i>
+                                    </div>
+                                    <div class="ml-3">
+                                        <p class="text-sm text-yellow-700">
+                                            <strong>Teaching Tip:</strong> Use materials that match students' interests (sports, music, technology).
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Content Display -->
+                        <div class="hidden card p-6 fade-in" id="contentSection">
+                            <h2 class="section-title flex items-center">
+                                <i class="fas fa-book-reader mr-2 text-english-blue"></i>
+                                Authentic Material
+                            </h2>
+                            
+                            <div class="bg-slate-50 rounded-xl p-5 mb-6">
+                                <div class="flex items-center text-sm text-slate-500 mb-3">
+                                    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded mr-2">
+                                        <i class="fas fa-file-alt mr-1"></i> Processed
+                                    </span>
+                                    <span id="fileTypeIndicator"></span>
+                                </div>
+                                <div class="prose max-w-none bg-white p-5 rounded-xl border border-slate-200" id="contentDisplay">
+                                    <!-- Content will appear here -->
+                                </div>
+                            </div>
+                            
+                            <div class="text-center">
+                                <button id="generateAssessmentBtn" class="btn-primary px-8 py-3 text-lg">
+                                    Create Assessment <i class="fas fa-arrow-right ml-2"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Assessment Section -->
+                        <div class="hidden card p-6 fade-in" id="assessmentSection">
+                            <div class="flex justify-between items-start mb-6">
+                                <div>
+                                    <h2 class="section-title">
+                                        <i class="fas fa-clipboard-check mr-2 text-english-blue"></i>
+                                        Level Assessment
+                                    </h2>
+                                    <p class="text-slate-600 mt-1">Evaluate student comprehension</p>
+                                </div>
+                            </div>
+                            
+                            <div id="assessmentContainer" class="space-y-5">
+                                <!-- Assessment questions will be inserted here -->
+                            </div>
+                            
+                            <div class="text-center mt-8">
+                                <button id="submitAssessmentBtn" class="btn-primary px-10 py-3 text-lg">
+                                    Evaluate Level <i class="fas fa-graduation-cap ml-2"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Level Results Section -->
+                        <div class="hidden card p-6 fade-in" id="resultsSection">
+                            <div class="text-center mb-8">
+                                <h2 class="text-2xl font-bold text-slate-800 mb-6">Level Assessment Results</h2>
+                                
+                                <div class="flex flex-col items-center">
+                                    <div class="w-32 h-32 rounded-full flex items-center justify-center bg-blue-50 border-8 border-blue-100 mb-4">
+                                        <span class="text-3xl font-bold text-english-blue" id="levelDisplay">A2</span>
+                                    </div>
+                                    <div id="levelDescription" class="text-lg max-w-xl mx-auto px-4 py-3 bg-blue-50 rounded-lg">
+                                        Intermediate (CEFR A2)
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-slate-50 rounded-xl p-6 mb-8">
+                                <h3 class="text-xl font-bold text-slate-800 mb-4 flex items-center">
+                                    <i class="fas fa-route mr-2 text-english-blue"></i> Recommended Learning Path
+                                </h3>
+                                <div class="space-y-4" id="learningPath">
+                                    <!-- Learning path items will be inserted here -->
+                                </div>
+                            </div>
+                            
+                            <div class="text-center">
+                                <button id="startLearningPathBtn" class="btn-primary px-10 py-3 text-lg">
+                                    Begin Learning Path <i class="fas fa-road ml-2"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Learning Path Activities -->
+                        <div class="hidden card p-6 fade-in" id="activitiesSection">
+                            <div class="flex justify-between items-center mb-6 pb-3 border-b border-slate-200">
+                                <div>
+                                    <h2 class="text-xl font-bold text-slate-800" id="activityLevel"></h2>
+                                    <p class="text-slate-600" id="activityDescription"></p>
+                                </div>
+                                <div class="text-right bg-blue-100 text-blue-800 px-3 py-1 rounded-full font-medium">
+                                    <i class="fas fa-star mr-2"></i> Activity <span id="activityCounter">1</span>/<span id="activityTotal">3</span>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-slate-50 rounded-xl p-6 mb-6" id="currentActivity">
+                                <!-- Current activity will be inserted here -->
+                            </div>
+                            
+                            <div class="flex justify-between">
+                                <button id="prevActivityBtn" class="bg-slate-100 hover:bg-slate-200 text-slate-800 py-2 px-6 rounded-lg font-medium">
+                                    <i class="fas fa-arrow-left mr-2"></i> Back
+                                </button>
+                                <button id="nextActivityBtn" class="btn-primary py-2 px-6">
+                                    Next <i class="fas fa-arrow-right ml-2"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Footer -->
+        <footer class="py-6 px-4 bg-slate-800 text-slate-300">
+            <div class="max-w-6xl mx-auto">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="mb-4 md:mb-0">
+                        <p class="text-center md:text-left">Authentic English Learning System © 2023</p>
+                        <p class="text-sm text-slate-500 mt-1">Teaching English with Real-world Materials</p>
+                    </div>
+                    <div class="flex space-x-4">
+                        <button class="text-slate-400 hover:text-white">
+                            Privacy Policy
+                        </button>
+                        <button class="text-slate-400 hover:text-white">
+                            Terms of Service
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- JavaScript Section -->
+    <script>
+        // Current state
+        let currentState = {
+            fileType: '',
+            content: '',
+            level: '',
+            learningPath: [],
+            currentPathIndex: 0,
+            currentActivityIndex: 0
+        };
+
+        // DOM elements
+        const sections = {
+            upload: document.getElementById('uploadSection'),
+            content: document.getElementById('contentSection'),
+            assessment: document.getElementById('assessmentSection'),
+            results: document.getElementById('resultsSection'),
+            activities: document.getElementById('activitiesSection')
+        };
+
+        // Show specific section and hide others
+        function showSection(sectionId) {
+            Object.values(sections).forEach(section => {
+                section.classList.add('hidden');
+            });
+            document.getElementById(sectionId).classList.remove('hidden');
+        }
+
+        // Upload file handler
+        function uploadFile(fileType) {
+            currentState.fileType = fileType;
+            
+            // Sample authentic materials
+            const authenticContent = {
+                text: `NEWS ARTICLE EXCERPT
+                
+"Climate activists staged a peaceful protest in London yesterday, demanding immediate government action on carbon emissions. The demonstration, organized by Youth for Climate, drew over 5,000 participants who marched from Hyde Park to Parliament Square. 
+
+Organizer Jessica Williams, 24, stated: 'We're here to make our voices heard. The science is clear - we need radical changes now to protect our future.' 
+
+Police reported no incidents during the three-hour event. The government is expected to respond to the demands next week."`,
+                
+                audio: `PODCAST TRANSCRIPT:
+                
+Host: Welcome to "Learning English with Real Conversations." Today we're discussing family traditions with Maria from Spain and John from Canada. Maria, tell us about a special tradition in your family.
+
+Maria: Well, every Christmas Eve, my whole family gathers to cook paella together. It's a big event - grandparents, cousins, everyone! While we cook, we share stories from the past year. 
+
+John: That sounds wonderful! In my family, we have "Pancake Saturdays." Every Saturday morning, my dad makes pancakes in funny shapes - animals, cartoon characters. It started when I was a child and now I do it with my kids!`,
+                
+                video: `MOVIE CLIP DESCRIPTION:
+                
+Scene from "The Intern" (2015)
+Anne Hathaway (Jules) and Robert De Niro (Ben) are having lunch in a restaurant.
+
+Jules: I'm so overwhelmed with work, I barely see my family.
+Ben: I remember when my daughter was young, I missed a whole year of her life traveling for work. Biggest regret.
+Jules: But you survived?
+Ben: We survived, but I wish I'd found better balance. Family first, always.
+Jules: (sighs) I needed to hear that today.`
+            };
+            
+            currentState.content = authenticContent[fileType];
+            
+            // Update UI
+            document.getElementById('fileTypeIndicator').textContent = 
+                fileType.charAt(0).toUpperCase() + fileType.slice(1) + ' Material';
+            
+            document.getElementById('contentDisplay').textContent = currentState.content;
+            
+            showSection('contentSection');
+        }
+
+        // Generate level assessment
+        function generateAssessment() {
+            // Different assessments based on material type
+            const textAssessment = [
+                {
+                    type: "multiple-choice",
+                    question: "What was the main purpose of the protest mentioned in the article?",
+                    options: [
+                        "To celebrate a festival",
+                        "To demand climate action",
+                        "To support local businesses",
+                        "To promote a new organization"
+                    ],
+                    correctAnswer: 1
+                },
+                {
+                    type: "true-false",
+                    question: "The protest resulted in several arrests according to the article.",
+                    correctAnswer: false
+                },
+                {
+                    type: "short-answer",
+                    question: "According to the organizer, why is immediate action needed?"
+                }
+            ];
+            
+            const audioAssessment = [
+                {
+                    type: "multiple-choice",
+                    question: "What does Maria's family cook together on Christmas Eve?",
+                    options: [
+                        "Pancakes",
+                        "Turkey",
+                        "Paella",
+                        "Pasta"
+                    ],
+                    correctAnswer: 2
+                },
+                {
+                    type: "true-false",
+                    question: "John's family tradition started when he had children.",
+                    correctAnswer: false
+                },
+                {
+                    type: "short-answer",
+                    question: "What does John do with his children that continues his family tradition?"
+                }
+            ];
+            
+            const videoAssessment = [
+                {
+                    type: "multiple-choice",
+                    question: "What is Jules feeling overwhelmed by?",
+                    options: [
+                        "Family responsibilities",
+                        "Health issues",
+                        "Work demands",
+                        "Social obligations"
+                    ],
+                    correctAnswer: 2
+                },
+                {
+                    type: "true-false",
+                    question: "Ben regrets prioritizing work over family when his daughter was young.",
+                    correctAnswer: true
+                },
+                {
+                    type: "short-answer",
+                    question: "What advice does Ben give Jules about work-life balance?"
+                }
+            ];
+            
+            const assessments = {
+                text: textAssessment,
+                audio: audioAssessment,
+                video: videoAssessment
+            };
+            
+            const assessmentContainer = document.getElementById('assessmentContainer');
+            assessmentContainer.innerHTML = '';
+            
+            assessments[currentState.fileType].forEach((question, index) => {
+                const questionEl = document.createElement('div');
+                questionEl.className = 'bg-white border rounded-lg p-5 mb-6';
+                questionEl.innerHTML = `
+                    <div class="flex items-start mb-4">
+                        <div class="bg-indigo-100 text-indigo-800 rounded-full h-8 w-8 flex items-center justify-center font-bold mr-3">${index + 1}</div>
+                        <div>
+                            <h3 class="font-semibold text-lg text-gray-800">${question.question}</h3>
+                        </div>
+                    </div>
+                `;
+                
+                if (question.type === 'multiple-choice') {
+                    let optionsHTML = '';
+                    question.options.forEach((option, optIndex) => {
+                        optionsHTML += `
+                            <label class="flex items-center bg-gray-50 hover:bg-gray-100 rounded-lg p-3 mb-2 cursor-pointer">
+                                <input type="radio" name="q${index}" value="${optIndex}" class="h-5 w-5 text-indigo-600 mr-3">
+                                <span>${option}</span>
+                            </label>
+                        `;
+                    });
+                    questionEl.innerHTML += optionsHTML;
+                }
+                else if (question.type === 'true-false') {
+                    questionEl.innerHTML += `
+                        <div class="grid grid-cols-2 gap-3">
+                            <label class="flex items-center bg-gray-50 hover:bg-gray-100 rounded-lg p-3 cursor-pointer">
+                                <input type="radio" name="q${index}" value="true" class="h-5 w-5 text-indigo-600 mr-3">
+                                <span>True</span>
+                            </label>
+                            <label class="flex items-center bg-gray-50 hover:bg-gray-100 rounded-lg p-3 cursor-pointer">
+                                <input type="radio" name="q${index}" value="false" class="h-5 w-5 text-indigo-600 mr-3">
+                                <span>False</span>
+                            </label>
+                        </div>
+                    `;
+                }
+                else if (question.type === 'short-answer') {
+                    questionEl.innerHTML += `
+                        <textarea class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-300 focus:border-transparent" placeholder="Type your answer here..." rows="3"></textarea>
+                    `;
+                }
+                
+                assessmentContainer.appendChild(questionEl);
+            });
+            
+            showSection('assessmentSection');
+        }
+
+        // Evaluate student level and suggest path
+        function evaluateLevel() {
+            // For demo purposes - real system would use actual answers
+            const levels = [
+                { name: "A1 Beginner", description: "Can understand basic expressions" },
+                { name: "A2 Elementary", description: "Can communicate in simple terms" },
+                { name: "B1 Intermediate", description: "Can handle most everyday situations" },
+                { name: "B2 Upper Intermediate", description: "Can understand complex texts" },
+                { name: "C1 Advanced", description: "Can express ideas fluently" },
+                { name: "C2 Proficient", description: "Native-like proficiency" }
+            ];
+            
+            // Random level for demo - real system would use actual assessment
+            const randomLevel = levels[Math.floor(Math.random() * levels.length)];
+            currentState.level = randomLevel;
+            
+            // Update UI
+            document.getElementById('levelDisplay').textContent = 
+                randomLevel.name.split(' ')[0];
+            document.getElementById('levelDescription').textContent = 
+                randomLevel.name + " - " + randomLevel.description;
+                
+            // Generate learning path based on level
+            generateLearningPath(randomLevel);
+            
+            showSection('resultsSection');
+        }
+
+        // Generate learning path based on level
+        function generateLearningPath(level) {
+            const levelIndex = level.name.split(' ')[0];
+            
+            const learningPaths = {
+                A1: [
+                    { 
+                        name: "Vocabulary Building", 
+                        description: "Expand essential vocabulary",
+                        activities: [
+                            {
+                                type: "vocabulary",
+                                title: "Key Word Matching",
+                                content: "Match words from the material with pictures/simple definitions"
+                            },
+                            {
+                                type: "flashcards",
+                                title: "Essential Phrases",
+                                content: "Practice common expressions from the material"
+                            }
+                        ]
+                    },
+                    { 
+                        name: "Basic Comprehension", 
+                        description: "Understand main ideas",
+                        activities: [
+                            {
+                                type: "matching",
+                                title: "True/False Statements",
+                                content: "Identify if statements about the material are true or false"
+                            },
+                            {
+                                type: "multiple-choice",
+                                title: "Simple Questions",
+                                content: "Answer basic comprehension questions"
+                            }
+                        ]
+                    }
+                ],
+                A2: [
+                    { 
+                        name: "Sentence Construction", 
+                        description: "Form simple sentences",
+                        activities: [
+                            {
+                                type: "reordering",
+                                title: "Sentence Building",
+                                content: "Reorder words to form correct sentences from the material"
+                            },
+                            {
+                                type: "fill-blank",
+                                title: "Cloze Activity",
+                                content: "Fill in missing words in sentences from the material"
+                            }
+                        ]
+                    },
+                    { 
+                        name: "Everyday Language", 
+                        description: "Practice practical language",
+                        activities: [
+                            {
+                                type: "dialogue",
+                                title: "Role Play",
+                                content: "Practice conversations based on situations in the material"
+                            },
+                            {
+                                type: "writing",
+                                title: "Personal Response",
+                                content: "Write simple sentences about your reaction to the material"
+                            }
+                        ]
+                    }
+                ],
+                B1: [
+                    { 
+                        name: "Grammar in Context", 
+                        description: "Apply grammar authentically",
+                        activities: [
+                            {
+                                type: "analysis",
+                                title: "Verb Tense Identification",
+                                content: "Find and categorize verb tenses in the material"
+                            },
+                            {
+                                type: "transformation",
+                                title: "Sentence Restructuring",
+                                content: "Change sentences from the material to different tenses/forms"
+                            }
+                        ]
+                    },
+                    { 
+                        name: "Detailed Comprehension", 
+                        description: "Understand specific information",
+                        activities: [
+                            {
+                                type: "short-answer",
+                                title: "Detailed Questions",
+                                content: "Answer questions requiring specific information from the material"
+                            },
+                            {
+                                type: "summary",
+                                title: "Key Point Identification",
+                                content: "Identify and list the main points of the material"
+                            }
+                        ]
+                    }
+                ],
+                B2: [
+                    { 
+                        name: "Critical Analysis", 
+                        description: "Develop analytical skills",
+                        activities: [
+                            {
+                                type: "discussion",
+                                title: "Theme Exploration",
+                                content: "Discuss major themes in the material"
+                            },
+                            {
+                                type: "comparison",
+                                title: "Perspective Analysis",
+                                content: "Compare different viewpoints presented in the material"
+                            }
+                        ]
+                    },
+                    { 
+                        name: "Advanced Writing", 
+                        description: "Practice sophisticated writing",
+                        activities: [
+                            {
+                                type: "response",
+                                title: "Opinion Essay",
+                                content: "Write a response expressing your viewpoint on the material"
+                            },
+                            {
+                                type: "analysis",
+                                title: "Rhetorical Devices",
+                                content: "Identify and analyze persuasive techniques in the material"
+                            }
+                        ]
+                    }
+                ],
+                C1: [
+                    { 
+                        name: "Nuanced Understanding", 
+                        description: "Interpret subtle meanings",
+                        activities: [
+                            {
+                                type: "inference",
+                                title: "Implicit Meaning",
+                                content: "Identify implied meanings in the material"
+                            },
+                            {
+                                type: "tone",
+                                title: "Tone Analysis",
+                                content: "Analyze the author's/speaker's tone and attitude"
+                            }
+                        ]
+                    },
+                    { 
+                        name: "Sophisticated Production", 
+                        description: "Create advanced output",
+                        activities: [
+                            {
+                                type: "debate",
+                                title: "Formal Debate",
+                                content: "Defend positions related to the material in a structured debate"
+                            },
+                            {
+                                type: "critique",
+                                title: "Critical Review",
+                                content: "Write a critical review of the material"
+                            }
+                        ]
+                    }
+                ],
+                C2: [
+                    { 
+                        name: "Native-like Proficiency", 
+                        description: "Refine near-native skills",
+                        activities: [
+                            {
+                                type: "interpretation",
+                                title: "Cultural Analysis",
+                                content: "Analyze cultural references and context in the material"
+                            },
+                            {
+                                type: "creation",
+                                title: "Alternative Ending",
+                                content: "Create an alternative version of the material"
+                            }
+                        ]
+                    },
+                    { 
+                        name: "Specialized Application", 
+                        description: "Apply language professionally",
+                        activities: [
+                            {
+                                type: "translation",
+                                title: "Nuanced Translation",
+                                content: "Translate sections while preserving subtle meanings"
+                            },
+                            {
+                                type: "mediation",
+                                title: "Complex Mediation",
+                                content: "Summarize and explain the material for different audiences"
+                            }
+                        ]
+                    }
+                ]
+            };
+            
+            currentState.learningPath = learningPaths[levelIndex] || [
+                { 
+                    name: "General Language Practice", 
+                    description: "Well-rounded skill development",
+                    activities: [
+                        {
+                            type: "comprehension",
+                            title: "Material Review",
+                            content: "Analyze and discuss the authentic material"
+                        },
+                        {
+                            type: "vocabulary",
+                            title: "Key Terms Practice",
+                            content: "Learn and practice essential vocabulary from the material"
+                        }
+                    ]
+                }
+            ];
+            
+            // Render learning path
+            const learningPathContainer = document.getElementById('learningPath');
+            learningPathContainer.innerHTML = '';
+            
+            currentState.learningPath.forEach((path, index) => {
+                const pathElement = document.createElement('div');
+                pathElement.className = 'bg-white rounded-lg border p-5 mb-4';
+                pathElement.innerHTML = `
+                    <div class="flex items-start">
+                        <div class="bg-indigo-100 text-indigo-800 rounded-full h-8 w-8 flex items-center justify-center font-bold mr-4">${index + 1}</div>
+                        <div>
+                            <h4 class="font-semibold text-lg text-gray-800">${path.name}</h4>
+                            <p class="text-gray-600 mt-1">${path.description}</p>
+                            <div class="mt-3 flex flex-wrap gap-2">
+                                ${path.activities.map(activity => `
+                                    <span class="bg-blue-50 text-blue-800 px-3 py-1 rounded-full text-sm">
+                                        ${activity.title}
+                                    </span>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                learningPathContainer.appendChild(pathElement);
+            });
+        }
+
+        // Start learning path
+        function startLearningPath() {
+            currentState.currentPathIndex = 0;
+            currentState.currentActivityIndex = 0;
+            renderActivity();
+        }
+
+        // Render current activity
+        function renderActivity() {
+            const path = currentState.learningPath[currentState.currentPathIndex];
+            const activity = path.activities[currentState.currentActivityIndex];
+            
+            // Update activity info
+            document.getElementById('activityLevel').textContent = path.name;
+            document.getElementById('activityDescription').textContent = path.description;
+            document.getElementById('activityCounter').textContent = currentState.currentActivityIndex + 1;
+            document.getElementById('activityTotal').textContent = path.activities.length;
+            
+            // Render activity content
+            const activityContainer = document.getElementById('currentActivity');
+            
+            // Activity templates by type
+            const activityTemplates = {
+                vocabulary: `
+                    <div class="activity-card">
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold text-slate-800 mb-4">${activity.title}</h3>
+                            <p class="text-slate-600 mb-5">${activity.content}</p>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <h4 class="font-medium text-slate-700 mb-2">Words from the text:</h4>
+                                    <ul class="space-y-2">
+                                        <li class="bg-slate-100 p-3 rounded-lg">protest</li>
+                                        <li class="bg-slate-100 p-3 rounded-lg">emissions</li>
+                                        <li class="bg-slate-100 p-3 rounded-lg">demonstration</li>
+                                        <li class="bg-slate-100 p-3 rounded-lg">demands</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-slate-700 mb-2">Definitions:</h4>
+                                    <ul class="space-y-2">
+                                        <li class="bg-slate-100 p-3 rounded-lg">A public expression of objection</li>
+                                        <li class="bg-slate-100 p-3 rounded-lg">Gases released into the air</li>
+                                        <li class="bg-slate-100 p-3 rounded-lg">A public meeting or march</li>
+                                        <li class="bg-slate-100 p-3 rounded-lg">Strong requests or requirements</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <button class="btn-primary w-full">Match Words to Definitions</button>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                
+                flashcards: `
+                    <div class="activity-card">
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold text-slate-800 mb-4">${activity.title}</h3>
+                            <p class="text-slate-600 mb-5">${activity.content}</p>
+                            <div class="bg-blue-50 rounded-xl p-6 text-center">
+                                <div class="text-2xl mb-4">"Carbon emissions"</div>
+                                <div class="text-lg text-slate-500">Press the button to see definition</div>
+                                <button class="btn-primary mt-4">
+                                    <i class="fas fa-sync-alt mr-2"></i> Flip Card
+                                </button>
+                            </div>
+                            <div class="mt-4 grid grid-cols-3 gap-2">
+                                <div class="bg-slate-100 rounded-lg p-3 text-center">
+                                    Previous
+                                </div>
+                                <div class="bg-blue-100 rounded-lg p-3 text-center font-bold">
+                                    3/10
+                                </div>
+                                <div class="bg-slate-100 rounded-lg p-3 text-center">
+                                    Next
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                
+                reordering: `
+                    <div class="activity-card">
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold text-slate-800 mb-4">${activity.title}</h3>
+                            <p class="text-slate-600 mb-5">${activity.content}</p>
+                            <div class="bg-slate-100 rounded-lg p-4">
+                                <div class="text-lg font-medium mb-3">Reorder these words to form a correct sentence:</div>
+                                <div class="flex flex-wrap gap-2">
+                                    <div class="bg-white border rounded-lg px-4 py-2 cursor-move">demanding</div>
+                                    <div class="bg-white border rounded-lg px-4 py-2 cursor-move">protesters</div>
+                                    <div class="bg-white border rounded-lg px-4 py-2 cursor-move">immediate</div>
+                                    <div class="bg-white border rounded-lg px-4 py-2 cursor-move">government</div>
+                                    <div class="bg-white border rounded-lg px-4 py-2 cursor-move">action</div>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <button class="btn-primary w-full">Check Answer</button>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                
+                discussion: `
+                    <div class="activity-card">
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold text-slate-800 mb-4">${activity.title}</h3>
+                            <p class="text-slate-600 mb-5">${activity.content}</p>
+                            <div class="bg-purple-50 rounded-xl p-5">
+                                <div class="font-bold text-lg mb-3">Discussion Questions:</div>
+                                <ul class="list-disc pl-5 space-y-2">
+                                    <li>What are the main arguments presented by the protesters?</li>
+                                    <li>How might the government respond to these demands?</li>
+                                    <li>What are the potential benefits and drawbacks of such protests?</li>
+                                    <li>How does this issue relate to your own community?</li>
+                                </ul>
+                                <div class="mt-4">
+                                    <textarea class="w-full h-32 p-3 border rounded-lg" placeholder="Record your thoughts here..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                
+                // Default template
+                default: `
+                    <div class="activity-card">
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold text-slate-800 mb-4">${activity.title}</h3>
+                            <p class="text-slate-600 mb-5">${activity.content}</p>
+                            <div class="bg-blue-50 rounded-xl p-5">
+                                <p>Complete this activity based on the authentic material you've reviewed.</p>
+                                <div class="mt-4">
+                                    <button class="btn-primary w-full">Start Activity</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            };
+            
+            activityContainer.innerHTML = activityTemplates[activity.type] || activityTemplates.default;
+            
+            showSection('activitiesSection');
+        }
+
+        // Navigate to next activity
+        function nextActivity() {
+            const path = currentState.learningPath[currentState.currentPathIndex];
+            
+            if (currentState.currentActivityIndex < path.activities.length - 1) {
+                currentState.currentActivityIndex++;
+                renderActivity();
+            } else {
+                alert('You have completed this learning path section!');
+            }
+        }
+
+        // Navigate to previous activity
+        function previousActivity() {
+            if (currentState.currentActivityIndex > 0) {
+                currentState.currentActivityIndex--;
+                renderActivity();
+            }
+        }
+
+        // Initialize event listeners
+        function initEventListeners() {
+            // File upload buttons
+            document.querySelectorAll('.file-upload-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const fileType = this.getAttribute('data-file-type');
+                    uploadFile(fileType);
+                });
+            });
+
+            // Generate assessment button
+            document.getElementById('generateAssessmentBtn').addEventListener('click', generateAssessment);
+
+            // Evaluate level button
+            document.getElementById('submitAssessmentBtn').addEventListener('click', evaluateLevel);
+
+            // Start learning path button
+            document.getElementById('startLearningPathBtn').addEventListener('click', startLearningPath);
+
+            // Next activity button
+            document.getElementById('nextActivityBtn').addEventListener('click', nextActivity);
+
+            // Previous activity button
+            document.getElementById('prevActivityBtn').addEventListener('click', previousActivity);
+        }
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            showSection('uploadSection');
+            initEventListeners();
+        });
+    </script>
+</body>
+</html>
